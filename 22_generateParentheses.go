@@ -16,7 +16,7 @@ func generate(ans *[]string, left int, right int, s string) {
 	}
 }
 
-func generateParethesis(n int) []string {
+func generateParenthesis(n int) []string {
 	ans := []string{}
 	ptr := &ans
 	generate(ptr, n, n, "")
