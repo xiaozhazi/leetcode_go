@@ -4,16 +4,18 @@ import (
 	"fmt"
 )
 
-func dfs(ans *[][]int, currentSet []int, nums []int, j int) {
-	*ans = append(*ans, currentSet)
+func dfs(ans *[][]int, tmp []int, nums []int, j int) {
+	tmp1 := make([]int, len(tmp))
+	copy(tmp1, tmp)
+	*ans = append(*ans, tmp1)
 	for i := j; i < len(nums); i++ {
 		// add nums[i]
-		currentSet = append(currentSet, nums[i])
+		tmp = append(tmp, nums[i])
 		//recursive
-		dfs(ans, currentSet, nums, i+1)
+		dfs(ans, tmp, nums, i+1)
 		// remove nums[i]
-		size := len(currentSet)
-		currentSet = currentSet[0:size]
+		size := len(tmp)
+		tmp = tmp[0 : size-1]
 	}
 }
 
@@ -23,8 +25,7 @@ func subsets(nums []int) [][]int {
 		return ans
 	}
 	ptr := &ans
-	tmp := []int{}
-	dfs(ptr, tmp, nums, 0)
+	dfs(ptr, []int{}, nums, 0)
 	return ans
 }
 
