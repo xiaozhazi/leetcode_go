@@ -6,7 +6,6 @@ import (
 
 func subsets(nums []int) [][]int {
 	ans := [][]int{}
-
 	if len(nums) < 1 {
 		return ans
 	}
