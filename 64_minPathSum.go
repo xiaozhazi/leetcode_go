@@ -4,6 +4,8 @@ func min(x, y int) int {
 	}
 	return y
 }
+
+// Solution I, easy to implement
 func minPathSum(grid [][]int) int {
 	if grid == nil || len(grid) == 0 {
 		return 0
@@ -31,4 +33,29 @@ func minPathSum(grid [][]int) int {
 		}
 	}
 	return dp[m-1][n-1]
+}
+
+// Solution 2:  reduce the space
+
+func minPathSum(grid [][]int) int {
+	if grid == nil || len(grid) == 0 {
+		return 0
+	}
+	m, n := len(grid), len(grid[0])
+	dp := make([]int, n)
+
+	for j, _ := range dp {
+		dp[j] = math.MaxInt32
+	}
+	dp[0] = 0
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if j == 0 {
+				dp[j] += grid[i][j]
+			} else {
+				dp[j] = min(dp[j], dp[j-1]) + grid[i][j]
+			}
+		}
+	}
+	return dp[n-1]
 }
